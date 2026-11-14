@@ -5,6 +5,7 @@
 [Rr]elease/
 artifacts/
 out/
+core
 
 # NuGet Packages & Locks
 *.nupkg

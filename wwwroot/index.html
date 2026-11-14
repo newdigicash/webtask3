@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Mantenimiento de Clientes</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <section class="header-section">
+            <h1>Listado de Clientes</h1>
+            <a href="formulario.html" class="btn-add">Nuevo Cliente</a>
+        </section>
+
+        <hr>
+
+        <section class="table-container">
+            <table class="client-table">
+                <thead>
+                    <tr>
+                        <th>Código</th>
+                        <th>Identificación</th>
+                        <th>Nombre</th>
+                        <th>Email</th>
+                        <th>Teléfono</th>
+                        <th>Dirección</th>
+                        <th>Fecha Registro</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="tablaClientes">
+                    <tr>
+                        <td colspan="9" class="text-center">Cargando clientes...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </div>
+
+    <script src="clienteCrud.js"></script>
+</body>
+</html>
