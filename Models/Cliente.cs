@@ -22,6 +22,11 @@ namespace CrudClienteApi.Models
 
         [Required]
         [MaxLength(100)]
+        [Column("apellido")]
+        public string Apellido { get; set; } = string.Empty;
+
+        [Required]
+        [MaxLength(100)]
         [Column("correo")]
         public string Correo { get; set; } = string.Empty;
 
@@ -29,9 +34,17 @@ namespace CrudClienteApi.Models
         [Column("telefono")]
         public string? Telefono { get; set; }
 
+        [MaxLength(20)]
+        [Column("celular")]
+        public string? Celular { get; set; }
+
         [MaxLength(100)]
         [Column("direccion")]
         public string? Direccion { get; set; }
+
+        [MaxLength(1)]
+        [Column("genero")]
+        public string Genero { get; set; } = "O";
 
         [Column("fechaRegistro")]
         public DateTime FechaRegistro { get; set; } = DateTime.UtcNow;

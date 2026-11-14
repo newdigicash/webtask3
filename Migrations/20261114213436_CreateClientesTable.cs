@@ -23,9 +23,12 @@ namespace CrudClienteApi.Migrations
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
                     identificacion = table.Column<string>(type: "varchar(20)", maxLength: 20, nullable: false),
                     nombre = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
+                    apellido = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
                     correo = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
                     telefono = table.Column<string>(type: "varchar(20)", maxLength: 20, nullable: true),
+                    celular = table.Column<string>(type: "varchar(20)", maxLength: 20, nullable: true),
                     direccion = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: true),
+                    genero = table.Column<string>(type: "varchar(1)", maxLength: 1, nullable: false),
                     fechaRegistro = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     estado = table.Column<bool>(type: "tinyint(1)", nullable: false)
                 },

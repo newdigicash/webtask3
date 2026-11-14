@@ -32,30 +32,34 @@ async function listarClientes() {
         if (clients.length === 0) {
             tableBody.innerHTML = `
                 <tr>
-                    <td colspan="9" class="text-center">No hay clientes registrados</td>
+                    <td colspan="10" class="text-center">No hay clientes registrados</td>
                 </tr>
             `;
             return;
         }
 
-        clients.forEach(client => {
-            const id = client.id || client.Id;
-            const identificacion = client.identificacion || client.Identificacion;
-            const nombre = client.nombre || client.Nombre;
-            const correo = client.correo || client.Correo;
-            const telefono = client.telefono || client.Telefono || '';
-            const direccion = client.direccion || client.Direccion || '';
-            const fechaRegistro = (client.fechaRegistro || client.FechaRegistro || '').split('T')[0];
-            const estado = client.estado !== undefined ? client.estado : client.Estado;
+      clients.forEach(client => {
+        const id = client.id || client.Id;
+        const identificacion = client.identificacion || client.Identificacion;
+        const nombre = client.nombre || client.Nombre;
+        const apellido = client.apellido || client.Apellido;
+        const correo = client.correo || client.Correo;
+        const telefono = client.telefono || client.Telefono || '';
+        const direccion = client.direccion || client.Direccion || '';
+        const fechaRegistro = (client.fechaRegistro || client.FechaRegistro || '').split('T')[0];
+        const estado = client.estado !== undefined ? client.estado : client.Estado;
+        const genero = client.genero || client.Genero || 'o';
+        let generoStr = genero.trim().toLowerCase() === "m" ? "Masculino" : (genero.trim().toLowerCase() === "f" ? "Femenino" : "Otro") ;
 
             const row = document.createElement('tr');
             row.innerHTML = `
                 <td>${id}</td>
                 <td>${identificacion}</td>
-                <td>${nombre}</td>
+                <td>${nombre} ${apellido}</td>
                 <td>${correo}</td>
                 <td>${telefono}</td>
                 <td>${direccion}</td>
+                <td>${generoStr}</td>
                 <td>${fechaRegistro}</td>
                 <td>${estado ? 'Activo' : 'Inactivo'}</td>
                 <td>
@@ -70,7 +74,7 @@ async function listarClientes() {
         console.error('Error:', error);
         tableBody.innerHTML = `
             <tr>
-                <td colspan="9" class="text-center">Error al consultar los registros</td>
+                <td colspan="10" class="text-center">Error al consultar los registros</td>
             </tr>
         `;
     }
@@ -81,9 +85,12 @@ function preparaFormulario(formulario) {
   const idInput = document.getElementById('id');
   const identificacionInput = document.getElementById('identificacion');
   const nombreInput = document.getElementById('nombre');
+  const apellidoInput = document.getElementById('apellido');
   const correoInput = document.getElementById('correo');
   const telefonoInput = document.getElementById('telefono');
+  const celularInput = document.getElementById('celular');
   const direccionInput = document.getElementById('direccion');
+  const generoSelect = document.getElementById('genero');
   const fechaRegistroInput = document.getElementById('fechaRegistro');
   const estadoSelect = document.getElementById('estado');
 
@@ -91,7 +98,7 @@ function preparaFormulario(formulario) {
   const clientId = urlParams.get('id');
 
   if (clientId) { //hay id en la url
-    consultarCliente(clientId, idInput, identificacionInput, nombreInput, correoInput, telefonoInput, direccionInput, fechaRegistroInput, estadoSelect);
+    consultarCliente(clientId, idInput, identificacionInput, nombreInput, correoInput, telefonoInput, direccionInput, fechaRegistroInput, estadoSelect, apellidoInput, celularInput, generoSelect);
   } else {
     fechaRegistroInput.value = new Date().toISOString().split('T')[0];
   }
@@ -102,9 +109,12 @@ function preparaFormulario(formulario) {
     const clientData = {
       identificacion: identificacionInput.value,
       nombre: nombreInput.value,
+      apellido: apellidoInput.value,
       correo: correoInput.value,
       telefono: telefonoInput.value,
+      celular: celularInput.value,
       direccion: direccionInput.value,
+      genero: generoSelect.value,
       estado: estadoSelect.value === 'true'
     };
 
@@ -139,7 +149,7 @@ function preparaFormulario(formulario) {
 }
 
 // recupera cliente por id
-async function consultarCliente(id, idInput, identificacionInput, nombreInput, correoInput, telefonoInput, direccionInput, fechaRegistroInput, estadoSelect) {
+async function consultarCliente(id, idInput, identificacionInput, nombreInput, correoInput, telefonoInput, direccionInput, fechaRegistroInput, estadoSelect, apellidoInput, celularInput, generoSelect) {
     try {
         const response = await fetch(`${API_BASE_URL}/${id}`);
         if (response.ok) {
@@ -148,9 +158,12 @@ async function consultarCliente(id, idInput, identificacionInput, nombreInput, c
             idInput.value = client.id || client.Id;
             identificacionInput.value = client.identificacion || client.Identificacion;
             nombreInput.value = client.nombre || client.Nombre;
+            apellidoInput.value = client.apellido || client.Apellido;
             correoInput.value = client.correo || client.Correo;
             telefonoInput.value = client.telefono || client.Telefono;
+            celularInput.value = client.celular || client.Celular;
             direccionInput.value = client.direccion || client.Direccion;
+            generoSelect.value = client.genero || client.Genero;
             fechaRegistroInput.value = (client.fechaRegistro || client.FechaRegistro || '').split('T')[0];
             estadoSelect.value = (client.estado !== undefined ? client.estado : client.Estado) ? 'true' : 'false';
 

@@ -26,6 +26,17 @@ namespace CrudClienteApi.Migrations
                         .HasColumnType("int")
                         .HasColumnName("id");
 
+                    b.Property<string>("Apellido")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)")
+                        .HasColumnName("apellido");
+
+                    b.Property<string>("Celular")
+                        .HasMaxLength(20)
+                        .HasColumnType("varchar(20)")
+                        .HasColumnName("celular");
+
                     b.Property<string>("Correo")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -44,6 +55,12 @@ namespace CrudClienteApi.Migrations
                     b.Property<DateTime>("FechaRegistro")
                         .HasColumnType("datetime(6)")
                         .HasColumnName("fechaRegistro");
+
+                    b.Property<string>("Genero")
+                        .IsRequired()
+                        .HasMaxLength(1)
+                        .HasColumnType("varchar(1)")
+                        .HasColumnName("genero");
 
                     b.Property<string>("Identificacion")
                         .IsRequired()
